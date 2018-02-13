@@ -25,5 +25,10 @@
             <artifactId>telegrambots</artifactId>
             <version>3.5</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.rkumsher</groupId>
+            <artifactId>utils</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 </project>

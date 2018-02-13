@@ -32,34 +32,22 @@ public class MyBot extends TelegramLongPollingBot {
                 }
             }
             if (message_text.equals("/cat_pic")) {
-
                 SendPhoto photo = new SendPhoto()
                         .setChatId(chat_id)
                         .setPhoto("http://thecatapi.com/api/images/get")
                         .setCaption("Random cat photo");
-                try {
-                    sendPhoto(photo); // Sending our message object to user
-                } catch (TelegramApiException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (message_text.equals("/cat")) {
-                SendMessage message = new SendMessage() // Create a message object object
-                        .setChatId(chat_id)
-                        .setText("Do you want cat?");
-
                 InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
                 List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
                 List<InlineKeyboardButton> rowInline = new ArrayList<>();
-                rowInline.add(new InlineKeyboardButton().setText("Share to friend").setSwitchInlineQuery("Telegram"));
+                rowInline.add(new InlineKeyboardButton().setText("Share to friend").setSwitchInlineQuery("http://thecatapi.com/api/images/get"));
                 // Set the keyboard to the markup
                 rowsInline.add(rowInline);
                 // Add it to the message
                 markupInline.setKeyboard(rowsInline);
-                message.setReplyMarkup(markupInline);
+                photo.setReplyMarkup(markupInline);
+
                 try {
-                    execute(message); // Sending our message object to user
+                    sendPhoto(photo); // Sending our message object to user
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }

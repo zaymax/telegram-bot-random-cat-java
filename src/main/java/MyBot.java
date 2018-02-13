@@ -1,4 +1,5 @@
 import org.telegram.telegrambots.api.methods.send.SendMessage;
+import org.telegram.telegrambots.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
@@ -18,9 +19,21 @@ public class MyBot extends TelegramLongPollingBot {
             if (message_text.equals("/help")) {
                 SendMessage message = new SendMessage() // Create a message object object
                         .setChatId(chat_id)
-                        .setText("In case of random string, this bot will just echo it back\nAvailible commands are: /help, /cat");
+                        .setText("In case of random string, this bot will just echo it back\nAvailible commands are: /help  /cat");
                 try {
                     execute(message); // Sending our message object to user
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (message_text.equals("/cat_pic")) {
+
+                SendPhoto photo = new SendPhoto()
+                        .setChatId(chat_id)
+                        .setPhoto("http://thecatapi.com/api/images/get")
+                        .setCaption("Random cat photo");
+                try {
+                    sendPhoto(photo); // Sending our message object to user
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }

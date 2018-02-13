@@ -14,13 +14,25 @@ public class MyBot extends TelegramLongPollingBot {
             String message_text = update.getMessage().getText();
             long chat_id = update.getMessage().getChatId();
 
-            SendMessage message = new SendMessage() // Create a message object object
-                    .setChatId(chat_id)
-                    .setText(message_text);
-            try {
-                execute(message); // Sending our message object to user
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
+            //Set commands
+            if (message_text.equals("/help")) {
+                SendMessage message = new SendMessage() // Create a message object object
+                        .setChatId(chat_id)
+                        .setText("In case of random string, this bot will just echo it back\nAvailible commands are: /help, /cat");
+                try {
+                    execute(message); // Sending our message object to user
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                SendMessage message = new SendMessage()
+                        .setChatId(chat_id)
+                        .setText(message_text);
+                try {
+                    execute(message);
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

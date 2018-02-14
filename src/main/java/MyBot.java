@@ -3,7 +3,10 @@ import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardButton;
+import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
@@ -27,6 +30,31 @@ public class MyBot extends TelegramLongPollingBot {
             long chat_id = update.getMessage().getChatId();
 
             //Set commands
+            if (message_text.equals("/start")) {
+                SendMessage message = new SendMessage() // Create a message object object
+                        .setChatId(chat_id)
+                        .setText("In case of random string, this bot will just echo it back\nAvailible commands are: /help  /cat");
+
+                ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+                keyboardMarkup.setResizeKeyboard(true);
+                List keyboard = new ArrayList<>();
+                KeyboardRow row = new KeyboardRow();
+                row.add("Cat to All");
+                keyboard.add(row);
+                keyboardMarkup.setKeyboard(keyboard);
+
+                message.setReplyMarkup(keyboardMarkup);
+
+                //KeyboardButton button = new KeyboardButton();
+
+                //button.setText("Cat to All");
+
+                try {
+                    execute(message); // Sending our message object to user
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+            }
             if (message_text.equals("/help")) {
                 SendMessage message = new SendMessage() // Create a message object object
                         .setChatId(chat_id)
@@ -77,7 +105,7 @@ public class MyBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "echotest001_bot";
+        return "randCat_bot";
     }
 
     @Override

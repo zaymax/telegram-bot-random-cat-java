@@ -39,7 +39,7 @@ public class MyBot extends TelegramLongPollingBot {
                 keyboardMarkup.setResizeKeyboard(true);
                 List keyboard = new ArrayList<>();
                 KeyboardRow row = new KeyboardRow();
-                row.add("Cat to All");
+                row.add("Give me some cat picture");
                 keyboard.add(row);
                 keyboardMarkup.setKeyboard(keyboard);
 
@@ -65,7 +65,7 @@ public class MyBot extends TelegramLongPollingBot {
                     e.printStackTrace();
                 }
             }
-            if (message_text.equals("/cat_pic")) {
+            if (message_text.equals("/cat_pic") || message_text.equals("Give me some cat picture")) {
                 if (catSet.isEmpty()) {
                     fillCatSet();
                 }
